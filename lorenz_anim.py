@@ -9,14 +9,17 @@ style.use('dark_background')
 
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
-# line = ax.plot([], [], [])
+
+lines = sum(
+    [ax.plot([], [], [], color=(0.133, 0.627, 0.564), lw=0.25, alpha=0.5)], [])
+pts = sum([ax.plot([], [], [], 'o', color=(0.847, 0.392, 0.274), markersize=4,
+                   markerfacecolor='None', markeredgewidth=0.25)], [])
 
 sigma = 10
 rho = 28
 beta = 8/3
 x0 = [0, 1, 15]
-t_end, n = 100, 25000
-t = np.linspace(0, t_end, n)
+t = np.linspace(0, 100, 25000)
 
 
 def lorenz(x, t):
@@ -33,17 +36,11 @@ def lorenz(x, t):
 
 x_solve = np.array([odeint(lorenz, x0, t)])
 
-lines = sum(
-    [ax.plot([], [], [], color=(0.133, 0.627, 0.564), lw=0.25, alpha=0.5)], [])
-pts = sum([ax.plot([], [], [], 'o', color=(0.847, 0.392, 0.274), markersize=4,
-                   markerfacecolor='None', markeredgewidth=0.25)], [])
-
 
 def init():
     for line, pt in zip(lines, pts):
         line.set_data([], [])
         line.set_3d_properties([])
-
         pt.set_data([], [])
         pt.set_3d_properties([])
     return lines, pts
@@ -68,16 +65,9 @@ def animate(k):
 ax.set_xlim((-15, 15))
 ax.set_ylim((-20, 20))
 ax.set_zlim((0, 40))
-
-ax.xaxis.pane.fill = False
-ax.yaxis.pane.fill = False
-ax.zaxis.pane.fill = False
-ax.xaxis.pane.set_edgecolor('k')
-ax.yaxis.pane.set_edgecolor('k')
-ax.zaxis.pane.set_edgecolor('k')
 ax.set_axis_off()
 ax.grid(False)
 
 anim = animation.FuncAnimation(
-    fig, animate, init_func=init, frames=5000, interval=1)
+    fig, animate, init_func=init, frames=25000, interval=1)
 plt.show()
