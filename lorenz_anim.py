@@ -2,10 +2,11 @@ from matplotlib.pyplot import style
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
+# from matplotlib.pyplot import style
 from scipy.integrate import odeint
 import numpy as np
 
-style.use('dark_background')
+# style.use('dark_background')
 
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
